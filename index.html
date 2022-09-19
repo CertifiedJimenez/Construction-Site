@@ -586,14 +586,15 @@
 //     $('.select2-container').show();
 //  });
 
-$( "#Housenum" ).click(function() {
+$(document).ready(function(){
+  $("#Postcode").change(function(){
     FetchAddresses()
+  });
 });
 
  function FetchAddresses(){
     let postCode = $('#Postcode').val()
     var url = `https://api.addressian.co.uk/v2/autocomplete/${postCode}`
-    url = 'none'
     fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     headers: {
@@ -602,6 +603,7 @@ $( "#Housenum" ).click(function() {
     }).then(function(response) {
     return response.json();
     }).then(function(data) {
+    $('#Housenum').find('option').remove()
     for(var i = 0; i < data.length; i += 1){
         let address = data[i].address
         console.log(address)
